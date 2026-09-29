@@ -1,0 +1,46 @@
+{
+	"name": "{{ npm_package }}",
+	"version": "0.1.0",
+	"description": "{{ description }}",
+	"author": "{{ author }}",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./dist/index.js",
+		"./package.json": "./package.json"
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+{% if api_module %}		"generate:api": "uv run ocelescope-backend openapi --module {{ api_module }}",
+		"build": "pnpm run generate:api && orval && tsdown",
+{% else %}		"build": "tsdown",
+{% endif %}		"dev": "tsdown --watch ./src",
+		"typecheck": "tsc --noEmit"
+	},
+	"peerDependencies": {
+{% if api_module %}		"@ocelescope/api-client": "catalog:",
+{% endif %}		"@ocelescope/core": "catalog:",
+{% if api_module %}		"@tanstack/react-query": "catalog:",
+		"axios": "catalog:",
+{% endif %}		"lucide-react": "catalog:",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+{% if api_module %}		"@ocelescope/api-client": "catalog:",
+		"@ocelescope/api-config": "catalog:",
+{% endif %}		"@ocelescope/core": "catalog:",
+{% if api_module %}		"@tanstack/react-query": "catalog:",
+{% endif %}		"@types/react": "catalog:",
+{% if api_module %}		"axios": "catalog:",
+{% endif %}		"lucide-react": "catalog:",
+{% if api_module %}		"orval": "catalog:",
+{% endif %}		"react": "catalog:",
+		"tsdown": "catalog:",
+		"typescript": "catalog:"
+	}
+}

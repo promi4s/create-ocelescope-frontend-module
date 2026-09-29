@@ -1,0 +1,18 @@
+import { defineModule, defineModuleRoute } from "@ocelescope/core";
+import { SparklesIcon } from "lucide-react";
+import Hello from "./routes/Hello";
+
+const helloRoute = defineModuleRoute({
+  name: "hello",
+  label: "Hello",
+  component: Hello,
+});
+
+export default defineModule({
+  name: "{{ module_key }}",
+  label: "{{ module_label | trim }}",
+  description: "{{ description }}",
+  authors: [{ name: "{{ author }}" }],
+  icon: SparklesIcon,
+  routes: [helloRoute],
+});
